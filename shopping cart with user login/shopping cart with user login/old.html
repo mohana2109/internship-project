@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {box-sizing: border-box;}
+
+body { 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+  display: flex;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkout-btn {
+  margin-left: 10px;
+}
+
+.nav-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-items a {
+  padding: 8px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.nav-items a:hover {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 768px) {
+  .header a:not(.logo) {
+    display: none;
+  }
+  
+  .header a.logo {
+    display: block;
+    float: none;
+    text-align: center;
+  }
+  
+  .header-right {
+    display: none;
+  }
+  
+  .nav-icon {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+  }
+  
+  .nav-items {
+    display: none;
+    position: absolute;
+    top: 60px; /* Adjust as necessary */
+    right: 0;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1;
+  }
+  
+  .nav-items.show {
+    display: flex;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="#default" class="logo">WELCOME <span style="color:white;"><?php echo $fetch_user['name']; ?></span></a>
+  
+  <!-- Navigation items initially visible -->
+  <div class="header-right nav-items">
+    <div class="flex">
+      <a href="login.php">Login</a>
+      <a href="register.php">Register</a>
+      <a href="profile.php">My Profile</a>
+      <div class="checkout-btn">
+        <a href="cart.php">Cart (<span id="itemCount"><?php echo $cartInfo['itemCount']; ?></span>)</a>
+      </div>
+      <a href="index.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+    </div>
+  </div>
+  
+  <!-- Menu icon for small screens -->
+  <div class="nav-icon" onclick="toggleNav()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z"/></svg>
+  </div>
+</div>
+
+<script>
+function toggleNav() {
+  var navItems = document.querySelector('.header-right.nav-items');
+  navItems.classList.toggle("show");
+}
+</script>
+
+</body>
+</html>
